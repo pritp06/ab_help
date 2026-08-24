@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Overview — Antigravity</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="university-detail">
+    <div id="navbar-mount"></div>
+
+    <main class="section">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="flex items-center gap-2 text-small text-muted" style="margin-bottom: var(--space-6);">
+                <a href="/" class="hover-link">Home</a>
+                <span>/</span>
+                <a href="universities.html" class="hover-link">Universities</a>
+                <span>/</span>
+                <span class="text-primary" id="uni-name-crumb">Overview</span>
+            </div>
+
+            <!-- University Banner -->
+            <div class="card" style="margin-bottom: var(--space-10);">
+                <div class="flex justify-between items-start" style="margin-bottom: var(--space-4);">
+                    <div>
+                        <h1 class="text-h1" id="uni-name">Technical University of Munich</h1>
+                        <p class="text-large text-secondary" id="uni-location" style="margin-top: 4px;">Munich, Germany</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="badge badge-neutral" id="uni-type">Public University</span>
+                        <span class="badge badge-info" id="uni-qs">QS Rank #28</span>
+                    </div>
+                </div>
+
+                <p class="text-body text-secondary" id="uni-overview" style="margin-bottom: var(--space-6); max-width: 800px;"></p>
+
+                <div class="grid grid-cols-3" style="background-color: var(--bg-surface-elevated); padding: var(--space-4); border-radius: var(--radius-md);">
+                    <div>
+                        <div class="text-meta">Tuition Policy</div>
+                        <div class="text-small text-semibold" id="uni-tuition-note">€0 / sem (EU)</div>
+                    </div>
+                    <div>
+                        <div class="text-meta">Total Students</div>
+                        <div class="text-small text-semibold" id="uni-students">50,000</div>
+                    </div>
+                    <div>
+                        <div class="text-meta">International Students</div>
+                        <div class="text-small text-semibold" id="uni-intl">38%</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-6); text-align: right;">
+                    <a href="#" target="_blank" rel="noopener" class="btn btn-outline btn-sm" id="uni-website">
+                        Visit Official University Website ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Offered Programs Section -->
+            <div>
+                <h2 class="text-h2" style="margin-bottom: var(--space-6);">Degree Programs Offered</h2>
+                <div class="grid grid-cols-2" id="uni-courses-list"></div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

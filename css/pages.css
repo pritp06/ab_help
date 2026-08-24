@@ -1,0 +1,261 @@
+/* ==========================================
+   PAGE-SPECIFIC STYLES & LAYOUTS
+   ========================================== */
+
+/* ------------------------------------------
+   HERO / HOME PAGE
+   ------------------------------------------ */
+.hero {
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-16);
+    text-align: center;
+    max-width: 840px;
+    margin: 0 auto;
+}
+
+.hero-subtitle {
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-10);
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.hero-search-wrapper {
+    max-width: 600px;
+    margin: 0 auto var(--space-8) auto;
+}
+
+.hero-destinations {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.hero-destination-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.hero-destination-tag:hover {
+    border-color: var(--border-medium);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ------------------------------------------
+   COURSE DETAIL & STICKY PANEL
+   ------------------------------------------ */
+.glance-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-md);
+}
+
+.glance-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.glance-item:last-child {
+    border-bottom: none;
+}
+
+.glance-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.glance-value {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.requirement-group {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-6);
+}
+
+.requirement-group-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.requirement-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.requirement-row:last-child {
+    border-bottom: none;
+}
+
+.source-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.source-badge:hover {
+    color: var(--brand-blue);
+    border-color: var(--border-accent);
+}
+
+/* ------------------------------------------
+   COMPARE TABLE
+   ------------------------------------------ */
+.compare-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    background-color: var(--bg-surface);
+}
+
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+}
+
+.compare-table th,
+.compare-table td {
+    padding: var(--space-4) var(--space-6);
+    text-align: left;
+    border-bottom: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+    font-size: 0.9375rem;
+}
+
+.compare-table th {
+    background-color: var(--bg-surface-elevated);
+    font-weight: 700;
+    color: var(--text-primary);
+    position: sticky;
+    top: 0;
+}
+
+.compare-table td:first-child {
+    font-weight: 600;
+    color: var(--text-secondary);
+    background-color: var(--bg-surface-elevated);
+    width: 220px;
+}
+
+.compare-table tr:last-child td {
+    border-bottom: none;
+}
+
+.compare-table td:last-child,
+.compare-table th:last-child {
+    border-right: none;
+}
+
+/* ------------------------------------------
+   APPLICATION PLANNER & KANBAN
+   ------------------------------------------ */
+.planner-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .planner-board {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .planner-board {
+        grid-template-columns: 1fr;
+    }
+}
+
+.planner-column {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.planner-column-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.planner-column-title {
+    font-weight: 700;
+    font-size: 0.9375rem;
+}
+
+.planner-item-card {
+    background-color: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    cursor: grab;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.planner-item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    font-size: 0.875rem;
+}
+
+.checklist-item.is-completed {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}

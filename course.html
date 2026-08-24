@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Specification & Requirements — Antigravity</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="course-detail">
+    <div id="navbar-mount"></div>
+
+    <main class="section">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="flex items-center gap-2 text-small text-muted" style="margin-bottom: var(--space-6);">
+                <a href="/" class="hover-link">Home</a>
+                <span>/</span>
+                <a href="courses.html" class="hover-link">Courses</a>
+                <span>/</span>
+                <span class="text-primary" id="course-title-crumb">Course Specification</span>
+            </div>
+
+            <!-- Page Title Header -->
+            <div style="margin-bottom: var(--space-8);">
+                <div class="flex items-center gap-3" style="margin-bottom: var(--space-2);">
+                    <span class="badge badge-info" id="course-degree">Master of Science</span>
+                    <a href="#" class="source-badge" id="course-source" target="_blank" rel="noopener"></a>
+                </div>
+                <h1 class="text-h1" id="course-title" style="margin-bottom: var(--space-2);">MSc Computer Science</h1>
+                <div class="text-large text-secondary">
+                    <a href="#" id="course-uni" class="hover-link text-semibold">Technical University of Munich</a> · <span id="course-location">Munich, Germany</span>
+                </div>
+            </div>
+
+            <!-- 2-Column Course Layout (Main Content + Sticky Sidebar) -->
+            <div class="course-detail-layout">
+                <!-- Main Content Column -->
+                <div>
+                    <!-- Overview -->
+                    <div class="card" style="margin-bottom: var(--space-8);">
+                        <h2 class="text-h3" style="margin-bottom: var(--space-3);">Overview</h2>
+                        <p class="text-body text-secondary" id="course-overview" style="line-height: 1.7;"></p>
+                    </div>
+
+                    <!-- Eligibility Assessment Widget Mount -->
+                    <div id="course-eligibility-mount"></div>
+
+                    <!-- Detailed Requirements Grouped -->
+                    <div class="requirement-group">
+                        <div class="requirement-group-title">
+                            <span>🎓</span> Academic Requirements
+                        </div>
+                        <div id="req-academic"></div>
+                    </div>
+
+                    <div class="requirement-group">
+                        <div class="requirement-group-title">
+                            <span>🌐</span> Language Requirements
+                        </div>
+                        <div id="req-language"></div>
+                    </div>
+
+                    <div class="requirement-group">
+                        <div class="requirement-group-title">
+                            <span>📝</span> Additional Prerequisite Requirements
+                        </div>
+                        <div id="req-additional"></div>
+                    </div>
+
+                    <!-- Required Application Documents -->
+                    <div class="card">
+                        <h3 class="text-h3" style="margin-bottom: var(--space-4);">Required Application Documents</h3>
+                        <div class="flex flex-col gap-2" id="course-documents"></div>
+                    </div>
+                </div>
+
+                <!-- Sticky At a Glance Panel -->
+                <div class="sticky-top">
+                    <div class="glance-card flex flex-col gap-4">
+                        <h3 class="text-h3" style="margin-bottom: var(--space-2);">At a Glance</h3>
+
+                        <div class="glance-item">
+                            <span class="glance-label">Tuition</span>
+                            <span class="glance-value" id="course-tuition">€2,000 / sem</span>
+                        </div>
+
+                        <div class="glance-item">
+                            <span class="glance-label">Program Duration</span>
+                            <span class="glance-value" id="course-duration">2 Years</span>
+                        </div>
+
+                        <div class="glance-item">
+                            <span class="glance-label">Language</span>
+                            <span class="glance-value" id="course-language">English</span>
+                        </div>
+
+                        <div class="glance-item">
+                            <span class="glance-label">Application Deadline</span>
+                            <span class="glance-value" id="course-deadline">31 May</span>
+                        </div>
+
+                        <div class="flex flex-col gap-3" style="margin-top: var(--space-4);">
+                            <button class="btn btn-primary btn-full" id="course-action-save">
+                                ♡ Save to Shortlist
+                            </button>
+                            <button class="btn btn-outline btn-full" id="course-action-compare">
+                                + Add to Compare
+                            </button>
+                            <button class="btn btn-secondary btn-full" id="course-action-planner">
+                                + Add to Application Planner
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

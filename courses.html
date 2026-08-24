@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Discovery — StudyBuddy</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="courses">
+    <div id="navbar-mount"></div>
+
+    <main class="section">
+        <div class="container">
+            <div style="margin-bottom: var(--space-8);">
+                <h1 class="text-h1">Explore International Courses</h1>
+                <p class="text-large text-secondary" style="margin-top: var(--space-2);">
+                    Filter verified Master’s and Bachelor’s programs by field, tuition, duration, and admission deadlines.
+                </p>
+            </div>
+
+            <div class="page-sidebar-layout">
+                <!-- Filters Sidebar Mount -->
+                <div id="courses-filters-mount"></div>
+
+                <!-- Main Courses Column -->
+                <div>
+                    <!-- Search Bar -->
+                    <div style="margin-bottom: var(--space-6);">
+                        <div class="input-icon-wrapper">
+                            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                            <input type="text" class="input" id="course-search-input" placeholder="Search courses by degree title, field, or university..." />
+                        </div>
+                    </div>
+
+                    <!-- Courses Grid -->
+                    <div class="grid grid-cols-2" id="courses-grid"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

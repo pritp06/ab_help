@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy — Discover Universities & Courses Worldwide</title>
+    <meta name="description" content="Explore top international universities, check personal eligibility, compare tuition and requirements, and plan your study-abroad applications.">
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="home">
+    <div id="navbar-mount"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="section hero">
+            <h1 class="text-display">Find where you belong.</h1>
+            <p class="hero-subtitle">
+                Explore top universities and courses that fit your academic goals, qualifications, and budget.
+            </p>
+
+            <div class="hero-search-wrapper">
+                <button class="search-trigger-btn" id="hero-search-trigger" style="width: 100%; height: 56px; font-size: 1.0625rem; justify-content: space-between; padding: 0 var(--space-6);">
+                    <div class="flex items-center gap-3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        <span>Search university, course, or country...</span>
+                    </div>
+                    <span class="search-kbd-shortcut">⌘K</span>
+                </button>
+            </div>
+
+            <div>
+                <div class="text-meta" style="margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">Popular Destinations</div>
+                <div class="hero-destinations">
+                    <a href="country.html?slug=germany" class="hero-destination-tag">🇩🇪 Germany</a>
+                    <a href="country.html?slug=united-kingdom" class="hero-destination-tag">🇬🇧 United Kingdom</a>
+                    <a href="country.html?slug=canada" class="hero-destination-tag">🇨🇦 Canada</a>
+                    <a href="country.html?slug=netherlands" class="hero-destination-tag">🇳🇱 Netherlands</a>
+                    <a href="country.html?slug=australia" class="hero-destination-tag">🇦🇺 Australia</a>
+                    <a href="country.html?slug=italy" class="hero-destination-tag">🇮🇹 Italy</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Countries Grid -->
+        <section class="section section-sm">
+            <div class="container">
+                <div class="flex items-center justify-between" style="margin-bottom: var(--space-8);">
+                    <div>
+                        <h2 class="text-h2">Study Destinations</h2>
+                        <p class="text-secondary">Discover countries with top English-taught programs and post-study opportunities</p>
+                    </div>
+                    <a href="countries.html" class="btn btn-secondary btn-sm">All Countries →</a>
+                </div>
+                <div class="grid grid-auto-fit-countries" id="home-popular-countries"></div>
+            </div>
+        </section>
+
+        <!-- Featured Programs -->
+        <section class="section section-sm">
+            <div class="container">
+                <div class="flex items-center justify-between" style="margin-bottom: var(--space-8);">
+                    <div>
+                        <h2 class="text-h2">Featured Master’s Programs</h2>
+                        <p class="text-secondary">Research-backed requirements, deadlines, and verified tuition costs</p>
+                    </div>
+                    <a href="courses.html" class="btn btn-secondary btn-sm">Browse All Courses →</a>
+                </div>
+                <div class="grid grid-cols-3" id="home-featured-courses"></div>
+            </div>
+        </section>
+
+        <!-- Three Pillars -->
+        <section class="section section-sm" style="background-color: var(--bg-surface);">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto var(--space-12) auto;">
+                    <h2 class="text-h2">How StudyBuddy Works</h2>
+                    <p class="text-secondary">A quiet, disciplined research environment for your international studies</p>
+                </div>
+
+                <div class="grid grid-cols-3">
+                    <div class="card flex flex-col gap-3">
+                        <div class="badge badge-info" style="align-self: flex-start;">01. Discover</div>
+                        <h3 class="text-h3">Find Programs</h3>
+                        <p class="text-secondary">Search verified English-taught degree courses across Europe, North America, and Australia.</p>
+                    </div>
+                    <div class="card flex flex-col gap-3">
+                        <div class="badge badge-warning" style="align-self: flex-start;">02. Understand</div>
+                        <h3 class="text-h3">Verify Requirements</h3>
+                        <p class="text-secondary">Review clear, source-backed academic prerequisites, minimum CGPA, IELTS, GRE, and fee breakdowns.</p>
+                    </div>
+                    <div class="card flex flex-col gap-3">
+                        <div class="badge badge-success" style="align-self: flex-start;">03. Decide</div>
+                        <h3 class="text-h3">Compare & Plan</h3>
+                        <p class="text-secondary">Compare options side-by-side, check your eligibility fit, and track applications with document checklists.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="border-top: 1px solid var(--border-subtle); padding: var(--space-12) 0; margin-top: var(--space-16);">
+        <div class="container flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="navbar-logo-icon">S</div>
+                <span class="text-small text-secondary">© 2026 StudyBuddy. Source-verified education data.</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="countries.html" class="text-small text-secondary">Countries</a>
+                <a href="universities.html" class="text-small text-secondary">Universities</a>
+                <a href="courses.html" class="text-small text-secondary">Courses</a>
+                <a href="compare.html" class="text-small text-secondary">Compare</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account — StudyBuddy</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="auth">
+    <div id="navbar-mount"></div>
+
+    <main class="section flex justify-center items-center">
+        <div class="card" style="width: 100%; max-width: 420px; padding: var(--space-8);">
+            <div class="text-center" style="margin-bottom: var(--space-6);">
+                <div class="navbar-logo-icon" style="margin: 0 auto var(--space-3) auto; width: 36px; height: 36px; font-size: 1.125rem;">S</div>
+                <h1 class="text-h2">Create Student Account</h1>
+                <p class="text-small text-secondary" style="margin-top: 4px;">Start researching and planning your study abroad path.</p>
+            </div>
+
+            <form class="flex flex-col gap-4" id="signup-form">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="input" id="signup-name" required placeholder="Alex Morgan" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="input" id="signup-email" required placeholder="student@example.com" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="input" id="signup-password" required placeholder="At least 8 characters" minlength="8" />
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" style="margin-top: var(--space-2);">Create Free Account</button>
+            </form>
+
+            <div class="text-center text-small text-secondary" style="margin-top: var(--space-6);">
+                Already have an account? <a href="login.html" class="text-semibold hover-link" style="color: var(--brand-blue);">Sign In</a>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

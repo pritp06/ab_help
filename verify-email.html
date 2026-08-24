@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email — StudyBuddy</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="auth">
+    <div id="navbar-mount"></div>
+
+    <main class="section flex justify-center items-center">
+        <div class="card text-center" style="width: 100%; max-width: 440px; padding: var(--space-8);">
+            <div style="font-size: 3rem; margin-bottom: var(--space-3);">✉️</div>
+            <h1 class="text-h2" style="margin-bottom: var(--space-2);">Check Your Email</h1>
+            <p class="text-body text-secondary" style="margin-bottom: var(--space-6);">
+                We have sent a verification link to your email address. Please click the link to confirm your account.
+            </p>
+
+            <a href="profile.html" class="btn btn-primary btn-full">Continue to Profile Setup →</a>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

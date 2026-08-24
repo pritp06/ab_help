@@ -1,0 +1,114 @@
+/* ==========================================
+   LAYOUT, CONTAINERS & UTILITIES
+   ========================================== */
+
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+    }
+}
+
+.section {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+}
+
+.section-sm {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+}
+
+/* Grid Layouts */
+.grid {
+    display: grid;
+    gap: var(--space-6);
+}
+
+.grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+.grid-auto-fit-cards {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+@media (max-width: 640px) {
+    .grid-auto-fit-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+.grid-auto-fit-countries {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Page Sidebar Layout (e.g. Courses / Universities / Course detail) */
+.page-sidebar-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-8);
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .page-sidebar-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.course-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-10);
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .course-detail-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Flex utilities */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.flex-wrap { flex-wrap: wrap; }
+
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+/* Sticky utilities */
+.sticky-top {
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-6));
+}
+
+/* Responsive Hide/Show */
+.desktop-only { display: block; }
+.mobile-only { display: none; }
+
+@media (max-width: 768px) {
+    .desktop-only { display: none !important; }
+    .mobile-only { display: block !important; }
+    .mobile-only-flex { display: flex !important; }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Study Guide — Antigravity</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="country-detail">
+    <div id="navbar-mount"></div>
+
+    <main class="section">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="flex items-center gap-2 text-small text-muted" style="margin-bottom: var(--space-6);">
+                <a href="/" class="hover-link">Home</a>
+                <span>/</span>
+                <a href="countries.html" class="hover-link">Countries</a>
+                <span>/</span>
+                <span class="text-primary" id="country-name">Germany</span>
+            </div>
+
+            <!-- Country Banner Header -->
+            <div class="card" style="margin-bottom: var(--space-10);">
+                <div class="flex items-center gap-4" style="margin-bottom: var(--space-4);">
+                    <span id="country-flag" style="font-size: 3.5rem;">🇩🇪</span>
+                    <div>
+                        <span class="badge badge-neutral" id="country-region">Europe</span>
+                        <p class="text-large text-secondary" id="country-overview" style="margin-top: 4px;"></p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3" style="background-color: var(--bg-surface-elevated); padding: var(--space-4); border-radius: var(--radius-md); margin-top: var(--space-4);">
+                    <div>
+                        <div class="text-meta">Tuition Range</div>
+                        <div class="text-h4" id="country-tuition">€0 - €3,000 / sem</div>
+                    </div>
+                    <div>
+                        <div class="text-meta">Living Expenses</div>
+                        <div class="text-h4" id="country-living">€934 / month</div>
+                    </div>
+                    <div>
+                        <div class="text-meta">Post-Study Work Visa</div>
+                        <div class="text-h4" id="country-visa">18 Months</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Universities in this Country -->
+            <div style="margin-bottom: var(--space-12);">
+                <h2 class="text-h2" style="margin-bottom: var(--space-6);">Top Universities</h2>
+                <div class="flex flex-col gap-4" id="country-universities"></div>
+            </div>
+
+            <!-- English Programs in this Country -->
+            <div>
+                <h2 class="text-h2" style="margin-bottom: var(--space-6);">Popular English Programs</h2>
+                <div class="grid grid-cols-3" id="country-courses"></div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Profile & Eligibility Setup — StudyBuddy</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="profile">
+    <div id="navbar-mount"></div>
+
+    <main class="section">
+        <div class="container" style="max-width: 680px;">
+            <div style="margin-bottom: var(--space-8);">
+                <h1 class="text-h1">Student Profile Setup</h1>
+                <p class="text-large text-secondary" style="margin-top: var(--space-2);">
+                    Configure your academic qualifications to automatically check personal eligibility across all international programs.
+                </p>
+            </div>
+
+            <form class="card flex flex-col gap-6" id="profile-form">
+                <div class="form-group">
+                    <label class="form-label">Current Degree Level</label>
+                    <select class="select" id="prof-degree">
+                        <option value="Bachelor's">Bachelor's Degree</option>
+                        <option value="Master's">Master's Degree</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Major / Field of Study</label>
+                    <input type="text" class="input" id="prof-field" placeholder="e.g. Computer Science & Engineering" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cumulative GPA / CGPA (out of 10.0)</label>
+                    <input type="number" step="0.1" min="0" max="10" class="input" id="prof-cgpa" placeholder="e.g. 7.4" />
+                </div>
+
+                <div class="grid grid-cols-2">
+                    <div class="form-group">
+                        <label class="form-label">IELTS Academic Score</label>
+                        <input type="number" step="0.5" min="0" max="9" class="input" id="prof-ielts" placeholder="e.g. 7.0" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">TOEFL iBT Score</label>
+                        <input type="number" min="0" max="120" class="input" id="prof-toefl" placeholder="e.g. 95" />
+                    </div>
+                </div>
+
+                <div class="card flex flex-col gap-4" style="background-color: var(--bg-surface-elevated);">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="prof-has-gre" style="width: 18px; height: 18px;" />
+                        <span class="text-semibold">I have taken the GRE General Test</span>
+                    </label>
+
+                    <div class="form-group">
+                        <label class="form-label">GRE Quantitative Score</label>
+                        <input type="number" min="130" max="170" class="input" id="prof-gre-quant" placeholder="e.g. 162" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Target Annual Tuition Budget (€ EUR)</label>
+                    <input type="number" step="1000" class="input" id="prof-budget" placeholder="e.g. 15000" />
+                </div>
+
+                <div style="margin-top: var(--space-4);">
+                    <button type="submit" class="btn btn-primary btn-lg btn-full">Save & Update Eligibility Assessments</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
