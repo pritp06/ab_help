@@ -9,8 +9,9 @@ from app.database import Base, get_db
 from app.main import app
 
 # Test Database Engine
+db_url = settings.DATABASE_URL.replace("localhost", "127.0.0.1")
 test_engine = create_engine(
-    settings.DATABASE_URL,
+    db_url,
     pool_pre_ping=True
 )
 

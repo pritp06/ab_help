@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universities Directory — StudyBuddy</title>
+    <title>QS Top 200 Universities 2027 — StudyBuddy</title>
     <script>
         (function() {
             const saved = localStorage.getItem('study_abroad_theme');
@@ -23,31 +23,80 @@
 
     <main class="section">
         <div class="container">
+            <!-- Header Section -->
             <div style="margin-bottom: var(--space-8);">
-                <h1 class="text-h1">International Universities</h1>
-                <p class="text-large text-secondary" style="margin-top: var(--space-2);">
-                    Explore top research institutions, public technical universities, and global rankings.
+                <div class="flex items-center gap-3" style="margin-bottom: var(--space-2);">
+                    <span class="badge badge-accent">QS World University Rankings 2027</span>
+                    <a href="https://www.topuniversities.com/world-university-rankings/2027" target="_blank" rel="noopener noreferrer" class="text-caption text-primary flex items-center gap-1" style="text-decoration: underline;">
+                        <span>Official QS Source</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                </div>
+                <h1 class="text-h1">Top Universities Worldwide</h1>
+                <p class="text-large text-secondary" style="margin-top: var(--space-2); max-width: 800px;">
+                    Explore leading higher education institutions based on the official QS World University Rankings 2027 (published June 18, 2026). Narrow your research by country, region, and study preferences.
                 </p>
             </div>
 
-            <!-- Page Layout: Sidebar Filters + Main Grid -->
-            <div class="page-sidebar-layout">
-                <!-- Filters Mount -->
-                <div id="universities-filters-mount"></div>
-
-                <!-- Main Content Column -->
-                <div>
+            <!-- Controls & Filters Bar -->
+            <div class="card card-body" style="margin-bottom: var(--space-6);">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
                     <!-- Search Input -->
-                    <div style="margin-bottom: var(--space-6);">
+                    <div class="md:col-span-2">
                         <div class="input-icon-wrapper">
                             <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                            <input type="text" class="input" id="uni-search-input" placeholder="Search university by name or city..." />
+                            <input type="text" class="input" id="qs-search-input" placeholder="Search university by name, abbreviation, or city..." />
                         </div>
                     </div>
 
-                    <!-- Universities Grid -->
-                    <div class="flex flex-col gap-6" id="universities-grid"></div>
+                    <!-- Country Filter -->
+                    <div>
+                        <select class="input" id="qs-country-select">
+                            <option value="">All Countries</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="China">China</option>
+                            <option value="Japan">Japan</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="South Korea">South Korea</option>
+                        </select>
+                    </div>
+
+                    <!-- Region Filter -->
+                    <div>
+                        <select class="input" id="qs-region-select">
+                            <option value="">All Regions</option>
+                            <option value="Europe">Europe</option>
+                            <option value="North America">North America</option>
+                            <option value="Asia">Asia</option>
+                            <option value="Oceania">Oceania</option>
+                        </select>
+                    </div>
                 </div>
+
+                <!-- Rank Range Filter Pills -->
+                <div class="flex items-center gap-2" style="margin-top: var(--space-4); border-top: 1px solid var(--color-border); padding-top: var(--space-3);">
+                    <span class="text-caption text-secondary" style="font-weight: var(--font-medium); margin-right: var(--space-2);">Filter Range:</span>
+                    <button class="btn btn-sm btn-primary qs-range-btn" data-limit="200">Top 200</button>
+                    <button class="btn btn-sm btn-ghost qs-range-btn" data-limit="100">Top 100</button>
+                    <button class="btn btn-sm btn-ghost qs-range-btn" data-limit="50">Top 50</button>
+                    <button class="btn btn-sm btn-ghost qs-range-btn" data-limit="10">Top 10</button>
+                </div>
+            </div>
+
+            <!-- Editorial Ranking List Container -->
+            <div id="qs-rankings-mount"></div>
+
+            <!-- Methodology & Trust Disclaimer -->
+            <div class="card card-body text-caption text-secondary" style="margin-top: var(--space-8); background-color: var(--color-surface-hover);">
+                <p>
+                    <strong>Methodology Notice:</strong> QS World University Rankings are one input for higher education research and should not be treated as a guarantee of admission, academic fit, employment, or student experience. Data is populated dynamically from PostgreSQL based on the official QS World University Rankings 2027 publication.
+                </p>
             </div>
         </div>
     </main>

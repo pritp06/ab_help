@@ -1,63 +1,66 @@
 /* ==========================================
-   LANDING / HOME PAGE CONTROLLER
+   HOMEPAGE CONTROLLER (TOP UNIVERSITIES PREVIEW)
    ========================================== */
 
-import { openSearchModal } from '../components/search.js';
-import { MockDataService } from '../data/mock-service.js';
+import { getTopUniversities } from '../api/rankings.js';
+import { UNIVERSITIES } from '../data/universities-data.js';
 
 export async function initHomePage() {
-    // Hero search trigger
-    const heroSearchBtn = document.getElementById('hero-search-trigger');
-    heroSearchBtn?.addEventListener('click', () => {
-        openSearchModal();
-    });
+    const topMount = document.getElementById('home-top-universities-mount');
+    if (!topMount) return;
 
-    // Render popular countries preview
-    const countriesContainer = document.getElementById('home-popular-countries');
-    if (countriesContainer) {
-        const countries = await MockDataService.getCountries();
-        countriesContainer.innerHTML = countries.slice(0, 6).map(c => `
-            <a href="/country.html?slug=${c.slug}" class="card card-hover flex flex-col gap-3">
-                <div class="flex items-center justify-between">
-                    <span style="font-size: 2rem;">${c.flag}</span>
-                    <span class="badge badge-neutral">${c.universitiesCount}+ Unis</span>
-                </div>
-                <div>
-                    <h3 class="text-h4">${c.name}</h3>
-                    <p class="text-small text-secondary" style="margin-top: 4px;">${c.overview}</p>
-                </div>
-                <div class="flex items-center justify-between" style="margin-top: auto; padding-top: var(--space-2);">
-                    <span class="text-meta">${c.englishProgramsCount}+ English Programs</span>
-                    <span class="text-small text-semibold" style="color: var(--brand-blue);">Explore →</span>
-                </div>
-            </a>
-        `).join('');
-    }
+    try {
+        const res = await getTopUniversities({ provider: 'QS', year: 2027, limit: 5 });
+        const items = res?.data || [];
 
-    // Render featured courses preview
-    const coursesContainer = document.getElementById('home-featured-courses');
-    if (coursesContainer) {
-        const courses = await MockDataService.getCourses();
-        coursesContainer.innerHTML = courses.slice(0, 3).map(co => `
-            <div class="card card-hover flex flex-col gap-3">
-                <div class="flex items-center justify-between">
-                    <span class="badge badge-info">${co.degreeType}</span>
-                    <span class="badge badge-neutral">${co.language}</span>
-                </div>
-                <div>
-                    <a href="/course.html?slug=${co.slug}" class="text-h4 text-semibold hover-link">${co.title}</a>
-                    <div class="text-small text-secondary" style="margin-top: 4px;">
-                        <a href="/university.html?slug=${co.universitySlug}">${co.universityName}</a> · ${co.city}, ${co.countryName}
+        if (items.length > 0) {
+            topMount.innerHTML = `
+                <div class="card" style="overflow: hidden;">
+                    <div style="padding: var(--space-6); background-color: var(--color-surface-hover); border-bottom: 1px solid var(--color-border);" class="flex items-center justify-between">
+                        <div>
+                            <span class="badge badge-accent mb-1">QS World University Rankings 2027</span>
+                            <h3 class="text-h3">Global Top 5 Preview</h3>
+                        </div>
+                        <a href="/universities.html" class="btn btn-primary btn-sm">
+                            View Top 200 →
+                        </a>
+                    </div>
+                    <div class="divide-y divide-border">
+                        ${items.map(item => {
+                            const uni = item.university;
+                            const country = uni.country;
+                            return `
+                                <div class="flex items-center justify-between" style="padding: var(--space-4) var(--space-6);">
+                                    <div class="flex items-center gap-4">
+                                        <div class="text-h3 font-bold text-accent" style="min-width: 40px;">
+                                            ${item.rank_display || item.rank}
+                                        </div>
+                                        <div>
+                                            <a href="/university.html?slug=${uni.slug}" class="text-large font-bold" style="text-decoration: none; color: var(--color-text-primary);">
+                                                ${uni.name}
+                                            </a>
+                                            <div class="text-caption text-secondary">
+                                                ${uni.city ? `${uni.city}, ` : ''}${country ? country.name : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-large font-bold text-accent">${item.score !== null ? item.score : '100'}</div>
+                                        <div class="text-caption text-secondary" style="font-size: 10px;">QS Score</div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
                     </div>
                 </div>
-                <div class="flex items-center justify-between" style="margin-top: auto; padding-top: var(--space-4); border-top: 1px solid var(--border-subtle);">
-                    <div>
-                        <div class="text-meta">Tuition</div>
-                        <div class="text-small text-semibold">${co.tuition}</div>
-                    </div>
-                    <a href="/course.html?slug=${co.slug}" class="btn btn-secondary btn-sm">View Requirements →</a>
-                </div>
+            `;
+        }
+    } catch (e) {
+        // Fallback to static preview if server offline
+        topMount.innerHTML = `
+            <div class="card card-body text-center">
+                <a href="/universities.html" class="btn btn-primary">Explore Top 200 Universities →</a>
             </div>
-        `).join('');
+        `;
     }
 }

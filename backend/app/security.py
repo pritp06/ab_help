@@ -8,12 +8,12 @@ pwd_context = CryptContext(schemes=["bcrypt", "argon2"], deprecated="auto")
 
 def hash_password(password: str) -> str:
     """Hash plain text password securely."""
-    return pwd_context.hash(password)
+    return pwd_context.hash(password[:72])
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify plain text password against stored hash."""
-    return pwd_context.verify(plain_password, hashed_password)
+    return pwd_context.verify(plain_password[:72], hashed_password)
 
 
 def generate_session_token() -> str:
