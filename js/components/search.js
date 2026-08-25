@@ -130,11 +130,13 @@ function renderSearchResults(data, query) {
     if (data.universities.length > 0) {
         html += `<div class="search-group-title">Universities</div>`;
         data.universities.forEach(u => {
+            const locText = u.city && u.countryName ? `${u.city}, ${u.countryName} · ` : '';
+            const rankText = u.qsWorldRanking ? `QS #${u.qsWorldRanking} · ${u.qsYear || 2026}` : '';
             html += `
                 <a href="/university.html?slug=${u.slug}" class="search-result-item">
                     <div>
                         <div class="search-result-title">${u.name}</div>
-                        <div class="search-result-sub">${u.city}, ${u.countryName} · QS #${u.qsWorldRanking}</div>
+                        <div class="search-result-sub">${locText}${rankText}</div>
                     </div>
                     <span class="text-meta">View Uni →</span>
                 </a>

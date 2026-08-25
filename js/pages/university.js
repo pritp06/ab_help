@@ -1,97 +1,104 @@
 /* ==========================================
-   UNIVERSITY DETAIL PAGE CONTROLLER
+   UNIVERSITY DETAIL PAGE CONTROLLER (QS 2026)
    ========================================== */
 
-import { getUniversityDetail } from '../api/rankings.js';
+import { getUniversityBySlug } from '../data/university-data.js';
 import { UNIVERSITIES } from '../data/universities-data.js';
-import { COURSES } from '../data/courses-data.js';
 
 export async function initUniversityDetailPage() {
+    const mount = document.getElementById('university-detail-mount');
+    if (!mount) return;
+
     const params = new URLSearchParams(window.location.search);
-    const slug = params.get('slug') || 'technical-university-of-munich';
+    const slug = params.get('slug') || '';
 
-    // 1. Try fetching real DB record from API
-    let uniData = null;
-    let rankingData = null;
+    const crumbEl = document.getElementById('uni-name-crumb');
 
-    try {
-        const res = await getUniversityDetail(slug);
-        if (res?.data) {
-            uniData = res.data;
-            rankingData = res.data.ranking;
-        }
-    } catch (e) {
-        // Fallback to local mock array if server offline
-        uniData = UNIVERSITIES.find(u => u.slug === slug) || UNIVERSITIES[0];
+    if (!slug) {
+        renderNotFound(mount, crumbEl);
+        return;
     }
 
-    if (!uniData) return;
+    // Lookup in QS 2026 Top 250 dataset
+    const qsRecord = await getUniversityBySlug(slug);
 
-    // Render Hero & Title
-    const nameEl = document.getElementById('uni-name');
-    const locEl = document.getElementById('uni-location');
-    const typeEl = document.getElementById('uni-type');
-    const rankEl = document.getElementById('uni-qs-rank');
-    const websiteEl = document.getElementById('uni-website');
-    const overviewEl = document.getElementById('uni-overview');
+    if (!qsRecord) {
+        renderNotFound(mount, crumbEl, slug);
+        return;
+    }
 
-    if (nameEl) nameEl.textContent = uniData.name;
-    if (locEl) locEl.textContent = `${uniData.city || ''}, ${uniData.country?.name || uniData.countryName || ''}`;
-    if (typeEl) typeEl.textContent = uniData.institution_type || uniData.type || 'Public University';
+    if (crumbEl) crumbEl.textContent = qsRecord.name;
 
-    // Render Official QS 2027 Ranking Badge from DB
-    if (rankEl) {
-        if (rankingData) {
-            rankEl.innerHTML = `
-                <div class="card card-body flex items-center justify-between" style="border-left: 4px solid var(--color-accent-primary);">
-                    <div>
-                        <div class="badge badge-accent mb-1">${rankingData.edition_name || 'QS World University Rankings 2027'}</div>
-                        <div class="text-h2 font-bold" style="color: var(--color-accent-primary);">
-                            #${rankingData.rank_display || rankingData.rank}
-                        </div>
-                        <div class="text-caption text-secondary">
-                            Official Overall Score: ${rankingData.score ? rankingData.score : 'N/A'}
-                        </div>
-                    </div>
-                    <a href="${rankingData.source_url || 'https://www.topuniversities.com/world-university-rankings/2027'}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
-                        Source ↗
+    // Check if additional rich metadata exists in existing dataset
+    const richData = UNIVERSITIES.find(u => u.slug === slug || u.name.toLowerCase() === qsRecord.name.toLowerCase());
+
+    const isTied = qsRecord.rankDisplay && qsRecord.rankDisplay.startsWith('=');
+
+    mount.innerHTML = `
+        <!-- Main Card Banner -->
+        <div class="card" style="margin-bottom: var(--space-8);">
+            <div class="flex justify-between items-start flex-wrap gap-4" style="margin-bottom: var(--space-4);">
+                <div>
+                    <h1 class="text-h1" style="color: var(--color-text-primary);">${qsRecord.name}</h1>
+                    ${richData ? `<p class="text-large text-secondary" style="margin-top: 4px;">${richData.city}, ${richData.countryName}</p>` : ''}
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="badge badge-accent" style="font-size: 14px; padding: 6px 12px;">
+                        QS World Ranking 2026: #${qsRecord.rankDisplay} ${isTied ? '(Tied)' : ''}
+                    </span>
+                </div>
+            </div>
+
+            <div style="padding: var(--space-4); background-color: var(--color-surface-hover); border-radius: var(--radius-md); border-left: 4px solid var(--color-accent-primary); margin-bottom: var(--space-6);">
+                <div class="text-caption text-secondary" style="font-weight: var(--font-semibold); text-transform: uppercase; letter-spacing: 0.05em;">Official Ranking Source</div>
+                <div class="text-large font-bold" style="color: var(--color-text-primary); margin-top: 2px;">
+                    QS World University Rankings 2026
+                </div>
+                <div class="text-caption text-secondary" style="margin-top: 2px;">
+                    Rank Position: #${qsRecord.rankDisplay}
+                </div>
+            </div>
+
+            ${richData && richData.overview ? `
+                <p class="text-body text-secondary" style="margin-bottom: var(--space-6); max-width: 800px;">
+                    ${richData.overview}
+                </p>
+            ` : ''}
+
+            ${richData && richData.website ? `
+                <div style="text-align: right;">
+                    <a href="${richData.website}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                        Visit Official Website ↗
                     </a>
                 </div>
-            `;
-        } else if (uniData.qsWorldRanking) {
-            rankEl.innerHTML = `
-                <div class="badge badge-accent">
-                    QS World Ranking 2027: #${uniData.qsWorldRanking}
-                </div>
-            `;
-        }
-    }
+            ` : ''}
+        </div>
 
-    if (websiteEl && (uniData.website_url || uniData.website)) {
-        websiteEl.href = uniData.website_url || uniData.website;
-    }
-    if (overviewEl && (uniData.description || uniData.overview)) {
-        overviewEl.textContent = uniData.description || uniData.overview;
-    }
+        <!-- Placeholder Notice for Unavailable Sections -->
+        <div class="card card-body text-center text-secondary" style="padding: var(--space-8); background-color: var(--color-surface-hover);">
+            <div class="badge badge-neutral mb-2">Notice</div>
+            <p class="text-large font-semibold" style="color: var(--color-text-primary); margin-bottom: var(--space-2);">
+                University details are being added.
+            </p>
+            <p class="text-caption" style="max-width: 500px; margin: 0 auto;">
+                Course modules, entry standards, tuition breakdowns, and application deadlines for ${qsRecord.name} are currently being compiled.
+            </p>
+        </div>
+    `;
+}
 
-    // Render Related Courses
-    const coursesGrid = document.getElementById('uni-courses-grid');
-    if (coursesGrid) {
-        const matching = COURSES.filter(c => c.universitySlug === slug || c.universityName === uniData.name);
-        if (matching.length > 0) {
-            coursesGrid.innerHTML = matching.map(c => `
-                <div class="card card-body flex flex-col justify-between">
-                    <div>
-                        <div class="badge badge-neutral mb-2">${c.degreeLevel}</div>
-                        <h4 class="text-h4 mb-1">${c.title}</h4>
-                        <p class="text-caption text-secondary mb-3">${c.fieldOfStudy} · ${c.durationMonths} Months</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3" style="border-top: 1px solid var(--color-border);">
-                        <span class="font-bold text-accent">${c.tuitionPerYearEur ? `€${c.tuitionPerYearEur.toLocaleString()}/yr` : 'No Tuition'}</span>
-                        <a href="/course.html?id=${c.id}" class="btn btn-sm btn-outline">Course Details</a>
-                    </div>
-                </div>
-            `).join('');
-        }
-    }
+function renderNotFound(mount, crumbEl, slug = '') {
+    if (crumbEl) crumbEl.textContent = 'Not Found';
+
+    mount.innerHTML = `
+        <div class="card card-body text-center" style="padding: var(--space-12);">
+            <h2 class="text-h2" style="margin-bottom: var(--space-2);">University Not Found</h2>
+            <p class="text-large text-secondary" style="margin-bottom: var(--space-6); max-width: 500px; margin-left: auto; margin-right: auto;">
+                The university you're looking for could not be found in the QS World University Rankings 2026 dataset.
+            </p>
+            <a href="universities.html" class="btn btn-primary">
+                ← Back to Top Universities
+            </a>
+        </div>
+    `;
 }

@@ -22,3 +22,12 @@ export function truncateText(text, maxLength = 120) {
     if (!text || text.length <= maxLength) return text;
     return text.substring(0, maxLength).trim() + '…';
 }
+
+export function slugifyUniversityName(name) {
+    if (!name) return '';
+    return name
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .trim()
+        .replace(/\s+/g, '-');
+}

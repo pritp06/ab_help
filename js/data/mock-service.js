@@ -5,16 +5,18 @@
 import { COUNTRIES } from './countries-data.js';
 import { UNIVERSITIES } from './universities-data.js';
 import { COURSES } from './courses-data.js';
+import { getTopUniversities } from './university-data.js';
+import { slugifyUniversityName } from '../utils/format.js';
 
 // Simulated delay helper
-const delay = (ms = 80) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms = 50) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const MockDataService = {
     // ----------------------------------------
     // GLOBAL SEARCH
     // ----------------------------------------
     async searchAll(query) {
-        await delay(50);
+        await delay(30);
         if (!query || query.trim().length === 0) {
             return { countries: [], universities: [], courses: [] };
         }
@@ -26,11 +28,38 @@ export const MockDataService = {
             c.region.toLowerCase().includes(q)
         ).slice(0, 3);
 
-        const matchedUniversities = UNIVERSITIES.filter(u => 
-            u.name.toLowerCase().includes(q) || 
-            u.shortName.toLowerCase().includes(q) || 
-            u.city.toLowerCase().includes(q)
-        ).slice(0, 4);
+        // Search QS 2026 Top 250 dataset
+        const qs2026Results = await getTopUniversities({ query: q });
+        const matchedQSUnis = qs2026Results.map(u => ({
+            id: `qs-${u.rank}`,
+            name: u.name,
+            slug: slugifyUniversityName(u.name),
+            qsWorldRanking: u.rankDisplay,
+            qsYear: 2026
+        }));
+
+        // Merge with existing universities array (deduplicating by slug)
+        const seenSlugs = new Set();
+        const combinedUnis = [];
+
+        for (const u of matchedQSUnis) {
+            if (!seenSlugs.has(u.slug)) {
+                seenSlugs.add(u.slug);
+                combinedUnis.push(u);
+            }
+        }
+
+        for (const u of UNIVERSITIES) {
+            if (combinedUnis.length >= 6) break;
+            if (!seenSlugs.has(u.slug) && (
+                u.name.toLowerCase().includes(q) || 
+                u.shortName.toLowerCase().includes(q) || 
+                u.city.toLowerCase().includes(q)
+            )) {
+                seenSlugs.add(u.slug);
+                combinedUnis.push(u);
+            }
+        }
 
         const matchedCourses = COURSES.filter(co => 
             co.title.toLowerCase().includes(q) || 
@@ -41,7 +70,7 @@ export const MockDataService = {
 
         return {
             countries: matchedCountries,
-            universities: matchedUniversities,
+            universities: combinedUnis.slice(0, 6),
             courses: matchedCourses
         };
     },
@@ -50,7 +79,7 @@ export const MockDataService = {
     // COUNTRIES
     // ----------------------------------------
     async getCountries(filters = {}) {
-        await delay(50);
+        await delay(30);
         let results = [...COUNTRIES];
         if (filters.region && filters.region !== 'all') {
             results = results.filter(c => c.region.toLowerCase() === filters.region.toLowerCase());
@@ -59,7 +88,7 @@ export const MockDataService = {
     },
 
     async getCountryBySlug(slug) {
-        await delay(50);
+        await delay(30);
         return COUNTRIES.find(c => c.slug === slug) || null;
     },
 
@@ -67,25 +96,16 @@ export const MockDataService = {
     // UNIVERSITIES
     // ----------------------------------------
     async getUniversities(filters = {}) {
-        await delay(50);
+        await delay(30);
         let results = [...UNIVERSITIES];
-        
-        if (filters.countrySlug && filters.countrySlug !== 'all') {
+        if (filters.countrySlug) {
             results = results.filter(u => u.countrySlug === filters.countrySlug);
         }
-        if (filters.field && filters.field !== 'all') {
-            results = results.filter(u => u.popularFields.some(f => f.toLowerCase() === filters.field.toLowerCase()));
-        }
-        if (filters.query) {
-            const q = filters.query.toLowerCase();
-            results = results.filter(u => u.name.toLowerCase().includes(q) || u.city.toLowerCase().includes(q));
-        }
-
         return results;
     },
 
     async getUniversityBySlug(slug) {
-        await delay(50);
+        await delay(30);
         return UNIVERSITIES.find(u => u.slug === slug) || null;
     },
 
@@ -93,46 +113,35 @@ export const MockDataService = {
     // COURSES
     // ----------------------------------------
     async getCourses(filters = {}) {
-        await delay(50);
+        await delay(30);
         let results = [...COURSES];
 
-        if (filters.countrySlug && filters.countrySlug !== 'all') {
-            results = results.filter(c => c.countrySlug === filters.countrySlug);
-        }
-        if (filters.universitySlug && filters.universitySlug !== 'all') {
-            results = results.filter(c => c.universitySlug === filters.universitySlug);
-        }
-        if (filters.degreeType && filters.degreeType !== 'all') {
-            results = results.filter(c => c.degreeType === filters.degreeType);
-        }
-        if (filters.field && filters.field !== 'all') {
-            results = results.filter(c => c.field.toLowerCase() === filters.field.toLowerCase());
-        }
-        if (filters.language && filters.language !== 'all') {
-            results = results.filter(c => c.language.toLowerCase() === filters.language.toLowerCase());
-        }
-        if (filters.maxTuition) {
-            results = results.filter(c => c.tuitionAnnual <= Number(filters.maxTuition));
-        }
-        if (filters.query) {
-            const q = filters.query.toLowerCase();
+        if (filters.search) {
+            const q = filters.search.toLowerCase();
             results = results.filter(c => 
                 c.title.toLowerCase().includes(q) || 
-                c.universityName.toLowerCase().includes(q) ||
-                c.countryName.toLowerCase().includes(q)
+                c.universityName.toLowerCase().includes(q) || 
+                c.field.toLowerCase().includes(q)
             );
+        }
+
+        if (filters.countrySlug) {
+            results = results.filter(c => c.countrySlug === filters.countrySlug);
+        }
+
+        if (filters.degreeLevel && filters.degreeLevel !== 'all') {
+            results = results.filter(c => c.degreeLevel.toLowerCase() === filters.degreeLevel.toLowerCase());
+        }
+
+        if (filters.field && filters.field !== 'all') {
+            results = results.filter(c => c.field.toLowerCase() === filters.field.toLowerCase());
         }
 
         return results;
     },
 
-    async getCourseBySlug(slug) {
-        await delay(50);
-        return COURSES.find(c => c.slug === slug) || null;
-    },
-
-    async getCoursesBySlugs(slugs = []) {
-        await delay(50);
-        return COURSES.filter(c => slugs.includes(c.slug));
+    async getCourseById(id) {
+        await delay(30);
+        return COURSES.find(c => c.id === id) || null;
     }
 };
