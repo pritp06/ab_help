@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy — Full-Stack Study Abroad Discovery Platform</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="home">
+    <div id="navbar-mount"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="section" style="padding-top: var(--space-12); padding-bottom: var(--space-12);">
+            <div class="container">
+                <div style="max-width: 840px; margin: 0 auto; text-align: center;">
+                    <span class="badge badge-accent mb-3">Full-Stack Education & Destination Planning</span>
+                    <h1 class="text-h1" style="font-size: var(--text-4xl); margin-bottom: var(--space-4); letter-spacing: -0.03em; line-height: 1.1;">
+                        Discover Your Ideal Study Abroad Destination & Degree
+                    </h1>
+                    <p class="text-large text-secondary" style="margin-bottom: var(--space-8); max-width: 680px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                        Source-verified tuition policies, post-study PR pathways, QS top university rankings, and a personalized 10-question destination matcher algorithm.
+                    </p>
+                    <div class="flex items-center justify-center gap-4 flex-wrap">
+                        <a href="quiz.html" class="btn btn-primary btn-lg">
+                            Take Personalized Matcher Test 🎯
+                        </a>
+                        <a href="universities.html" class="btn btn-outline btn-lg">
+                            Browse QS Top 250 Universities →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10-Question Destination Matcher CTA Card -->
+        <section class="section section-sm">
+            <div class="container">
+                <div class="card card-body" style="background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-hover) 100%); border: 1px solid var(--color-accent-primary); box-shadow: var(--shadow-md);">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                        <div class="md:col-span-8">
+                            <span class="badge badge-accent mb-2">Algorithm Matcher</span>
+                            <h2 class="text-h2 mb-2" style="color: var(--color-text-primary);">Unsure which country or course fits your budget & PR goals?</h2>
+                            <p class="text-large text-secondary" style="max-width: 600px;">
+                                Take our 10-question evaluation test. We analyze tuition limits, language barriers, post-graduation PR priority, and CGPA to rank top countries and courses.
+                            </p>
+                        </div>
+                        <div class="md:col-span-4 text-right">
+                            <a href="quiz.html" class="btn btn-primary btn-lg" style="width: 100%;">
+                                Start 10-Question Test 🎯
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Universities Preview Section -->
+        <section class="section section-sm">
+            <div class="container">
+                <div id="home-top-universities-mount"></div>
+            </div>
+        </section>
+
+        <!-- Three Pillars Section -->
+        <section class="section section-sm" style="background-color: var(--color-surface-hover);">
+            <div class="container">
+                <div style="text-align: center; max-width: 600px; margin: 0 auto var(--space-8) auto;">
+                    <h2 class="text-h2">How StudyBuddy Works</h2>
+                    <p class="text-secondary">Source-verified, transparent academic decision tools</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="card card-body flex flex-col gap-3">
+                        <div class="badge badge-accent" style="align-self: flex-start;">01. Match & Evaluate</div>
+                        <h3 class="text-h3">10-Question Matcher</h3>
+                        <p class="text-secondary">Filter by tuition budget (€0 to premium), PR suitability, language instruction, and CGPA fit.</p>
+                    </div>
+                    <div class="card card-body flex flex-col gap-3">
+                        <div class="badge badge-neutral" style="align-self: flex-start;">02. Research</div>
+                        <h3 class="text-h3">QS Top 250 Universities</h3>
+                        <p class="text-secondary">Explore official QS 2026 university rankings, tied rank statuses, and degree specifications.</p>
+                    </div>
+                    <div class="card card-body flex flex-col gap-3">
+                        <div class="badge badge-accent" style="align-self: flex-start;">03. Plan & Apply</div>
+                        <h3 class="text-h3">Compare & Plan</h3>
+                        <p class="text-secondary">Compare programs side-by-side and keep track of your application progress seamlessly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="border-top: 1px solid var(--color-border); padding: var(--space-12) 0; margin-top: var(--space-16);">
+        <div class="container flex justify-between items-center flex-wrap gap-4">
+            <div class="flex items-center gap-3">
+                <div class="navbar-logo-icon">S</div>
+                <span class="text-caption text-secondary">© 2026 StudyBuddy. Source-verified study abroad data platform.</span>
+            </div>
+            <div class="flex items-center gap-6 text-caption text-secondary">
+                <a href="quiz.html" class="hover-link">Destination Test</a>
+                <a href="universities.html" class="hover-link">Top Universities</a>
+                <a href="courses.html" class="hover-link">Courses</a>
+                <a href="compare.html" class="hover-link">Compare</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

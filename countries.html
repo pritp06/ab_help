@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Destinations — StudyBuddy</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="countries">
+    <div id="navbar-mount"></div>
+
+    <main class="section">
+        <div class="container">
+            <div style="margin-bottom: var(--space-8);">
+                <span class="badge badge-accent mb-2">Global Education Guides</span>
+                <h1 class="text-h1">Study Abroad Destinations</h1>
+                <p class="text-large text-secondary" style="margin-top: var(--space-2); max-width: 800px;">
+                    Compare tuition fee policies, post-study work permits (1 to 3+ years), and permanent residency opportunities across top destinations.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="countries-grid">
+                <!-- Country Card: Germany -->
+                <div class="card card-body card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span style="font-size: 32px;">🇩🇪</span>
+                            <span class="badge badge-success">€0 Tuition Fees</span>
+                        </div>
+                        <h2 class="text-h2 mb-1">Germany</h2>
+                        <p class="text-caption text-secondary mb-4">Europe · 1.5-Year Post-Study Work Visa · Fast PR in 2 Years</p>
+                        <p class="text-body text-secondary mb-4">Home to Europe’s premier technical universities (TUM, RWTH Aachen, KIT) offering zero tuition fee public degrees and high tech demand.</p>
+                    </div>
+                    <div>
+                        <a href="country.html?slug=germany" class="btn btn-outline btn-sm">Explore Germany Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Country Card: United Kingdom -->
+                <div class="card card-body card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span style="font-size: 32px;">🇬🇧</span>
+                            <span class="badge badge-accent">1-Year Master's</span>
+                        </div>
+                        <h2 class="text-h2 mb-1">United Kingdom</h2>
+                        <p class="text-caption text-secondary mb-4">Europe · 2-Year Graduate Route Visa · 100% English</p>
+                        <p class="text-body text-secondary mb-4">World-class academic prestige, 1-year intensive postgraduate degrees, and London global finance & AI hubs.</p>
+                    </div>
+                    <div>
+                        <a href="country.html?slug=united-kingdom" class="btn btn-outline btn-sm">Explore UK Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Country Card: Canada -->
+                <div class="card card-body card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span style="font-size: 32px;">🇨🇦</span>
+                            <span class="badge badge-accent">Top PR Score (10/10)</span>
+                        </div>
+                        <h2 class="text-h2 mb-1">Canada</h2>
+                        <p class="text-caption text-secondary mb-4">North America · Up to 3-Year PGWP Work Permit · Express Entry PR</p>
+                        <p class="text-body text-secondary mb-4">Transparent immigration pathways, high quality of life, and top universities (Toronto, UBC, McGill, Waterloo).</p>
+                    </div>
+                    <div>
+                        <a href="country.html?slug=canada" class="btn btn-outline btn-sm">Explore Canada Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Country Card: Australia -->
+                <div class="card card-body card-hover flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span style="font-size: 32px;">🇦🇺</span>
+                            <span class="badge badge-warning">High Student Wages</span>
+                        </div>
+                        <h2 class="text-h2 mb-1">Australia</h2>
+                        <p class="text-caption text-secondary mb-4">Oceania · 2 to 4-Year Work Visa · Regional Subclass 190 PR</p>
+                        <p class="text-body text-secondary mb-4">Sunny coastal lifestyle, high student working allowances, and Group of Eight institutions (Melbourne, Sydney, Monash).</p>
+                    </div>
+                    <div>
+                        <a href="country.html?slug=australia" class="btn btn-outline btn-sm">Explore Australia Guide →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

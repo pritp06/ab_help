@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Degree Programs & Courses — StudyBuddy</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="courses">
+    <div id="navbar-mount"></div>
+
+    <main class="section">
+        <div class="container">
+            <div style="margin-bottom: var(--space-8);">
+                <span class="badge badge-accent mb-2">Verified Degree Directory</span>
+                <h1 class="text-h1">English-Taught Degree Courses</h1>
+                <p class="text-large text-secondary" style="margin-top: var(--space-2); max-width: 800px;">
+                    Search verified Master's & Bachelor's programs with transparent tuition breakdowns, credit requirements, and career specializations.
+                </p>
+            </div>
+
+            <!-- Courses Grid Container -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="courses-grid">
+                <div class="card card-body card-hover flex flex-col justify-between">
+                    <div>
+                        <span class="badge badge-neutral mb-2">Master's · STEM</span>
+                        <h3 class="text-h3 mb-1">M.Sc. Computer Science</h3>
+                        <p class="text-caption text-secondary mb-4">Technical University of Munich · Germany</p>
+                        <p class="text-body text-secondary mb-4">Advanced software engineering, distributed systems, machine learning, and autonomous robotics.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4" style="border-top: 1px solid var(--color-border);">
+                        <span class="font-bold text-accent">€0 Tuition (Admin Fee ~€300/sem)</span>
+                        <a href="course.html?id=tum-cs" class="btn btn-sm btn-outline">Course Details</a>
+                    </div>
+                </div>
+
+                <div class="card card-body card-hover flex flex-col justify-between">
+                    <div>
+                        <span class="badge badge-neutral mb-2">Master's · STEM</span>
+                        <h3 class="text-h3 mb-1">M.Sc. Artificial Intelligence</h3>
+                        <p class="text-caption text-secondary mb-4">Imperial College London · United Kingdom</p>
+                        <p class="text-body text-secondary mb-4">Deep learning, computer vision, natural language processing, and neural computing in central London.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4" style="border-top: 1px solid var(--color-border);">
+                        <span class="font-bold text-accent">£36,500 / year</span>
+                        <a href="course.html?id=imperial-ai" class="btn btn-sm btn-outline">Course Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Destination & Course Matcher — StudyBuddy</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('study_abroad_theme');
+            const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="quiz">
+    <div id="navbar-mount"></div>
+
+    <main class="section">
+        <div class="container">
+            <!-- Hero Introduction -->
+            <div style="text-align: center; max-width: 700px; margin: 0 auto var(--space-8) auto;">
+                <span class="badge badge-accent mb-2">Interactive Personalization Engine</span>
+                <h1 class="text-h1">Personalized Destination & Course Matcher</h1>
+                <p class="text-large text-secondary" style="margin-top: var(--space-2);">
+                    Answer 10 quick questions about your budget, post-study PR goals, language preference, and field of study to discover your highest-scoring study abroad destinations.
+                </p>
+            </div>
+
+            <!-- Quiz Mount Container -->
+            <div id="quiz-mount"></div>
+        </div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
